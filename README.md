@@ -1,0 +1,1 @@
+etherpad with macro abilities
