@@ -1,0 +1,266 @@
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % 140129.sty                                          %
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \usepackage[pdftex]{epsfig}
+ \usepackage{hyperref}
+ \usepackage[german,english]{babel}
+ \usepackage{pslatex}
+ \usepackage[T1]{fontenc}
+ \usepackage{fancyhdr}
+ \usepackage{pdfpages}
+ \usepackage{titlesec}
+ \usepackage{scalefnt}
+ \usepackage{mflogo}
+ \usepackage{natbib}
+ \usepackage{listings} 
+ \usepackage{makeidx} 
+ \makeindex
+ \sloppy
+% \usepackage{i/a/utils/latex/sty/hyphenation}
+% \usepackage{i/a/utils/latex/commands/copyright}
+% \usepackage{i/a/utils/latex/sty/BASH}
+% \usepackage{i/a/utils/latex/sty/Processing}
+% \usepackage{i/utils/hyphenation}
+% \usepackage{i/utils/copyright}
+% \usepackage{i/utils/BASH}
+% \usepackage{i/utils/Processing}
+
+ \lstset{breaklines=false,
+         emptylines=1,
+         keywordstyle=\textbf,
+         %commentstyle=\scalefont{.7}\textsf,
+         aboveskip=0.0\textheight,
+         xleftmargin=-5mm,
+         showspaces=false,
+         showstringspaces=false,
+         basicstyle=\footnotesize\ttfamily\scalefont{.8}
+         }
+ \renewcommand{\ttdefault}{pcr}
+ \usepackage{helvet}
+ \renewcommand{\encodingdefault}{T1}
+ \renewcommand{\rmdefault}{phv}
+
+ \setlength{\footskip}{10mm}
+ % ABSTAND TRENNLINIE FUSSNOTEN
+  \renewcommand{\footnoterule}{
+   \vspace*{2mm}
+    \noindent
+     \rule{\textwidth}{0.5pt}{
+      \vspace*{1mm}
+   }}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \setlength\topmargin{-20mm}
+ \setlength\oddsidemargin{-5mm}
+ \setlength\evensidemargin{-10mm}
+ \setlength\textheight{165mm}
+ \setlength\textwidth{105mm}
+
+% \newcommand{\gfdl}%
+% {%
+%     \noindent
+%     Permission is granted to copy, distribute 
+%     and/or modify this document under the terms 
+%     of the \textbf{GNU Free Documentation License}, 
+%     Version~1.2 or any later version published by 
+%     the Free Software Foundation;
+% }
+%
+% \newcommand{\opencontent}%
+% {%
+%     \noindent
+%     This material may be distributed only subject to 
+%     the terms and conditions set forth in the 
+%     Open Publication License, v1.0 
+%     or later (the latest version is presently available 
+%     at \url{http://www.opencontent.org/openpub/}).
+% }
+
+ \newcommand{\gplgfdlfal}%
+ {%
+    \noindent
+    Permission is granted to copy, distribute and/or modify this document under 
+    the terms of any of the following licenses:
+
+    \smallskip
+    \noindent
+    {\bf(1)} the GNU General Public License as published by the Free Software
+    Foundation; either version 2 of the License, or any later version. To view a
+    copy of this license, visit \url{http://www.gnu.org/copyleft/gpl.html} or send a
+    letter to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+    Boston, MA 02111-1307, USA.
+
+    \smallskip
+    \noindent
+    {\bf(2)} the GNU Free Documentation License as published by the Free Software
+    Foundation; either version 1.2 of the license or any later version. To view a
+    copy of this license, visit \url{http://www.gnu.org/copyleft/fdl.html} or send a
+    letter to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+    Boston, MA 02111-1307, USA.
+
+    \smallskip
+    \noindent
+    {\bf(3)} the Free Art License; either version 1.3 of the license or any later
+    version. To view a copy of the license, visit
+    \url{http://artlibre.org/licence/lal/en/}
+ }
+
+   \newcommand{\license}{\gplgfdlfal}
+
+% CHANGE HEADLINES
+% \usepackage{sectsty}
+%         % CHANGE FONT HERE .V.  %
+%\allsectionsfont{\fontfamily{bun}\selectfont}
+
+\renewcommand*\thechapter{}
+\renewcommand*\thesection{\arabic{section}}
+% \renewcommand*\thesubsection{\arabic{subsection}}
+
+%\titleformat{\chapter}[display]{\huge\bfseries}{\thechapter}{0pt}{}
+%\titlespacing{\chapter}
+%{0pc}{-17mm}{3em}[0pc]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CITATION %
+
+\usepackage{color}
+\newcommand{\citebox}[1]{%
+%\hspace*{1em}
+%\setlength\fboxsep{2pt}%
+%\setlength\fboxrule{0.2pt}%
+%\hspace*{-2.3em}%
+%\noindent\fbox{%
+\hspace*{-0.7em}
+{\bf{~\fontfamily{ppl}\selectfont%
+#1}}%
+% \begin{scriptsize}#1\end{scriptsize}%
+%}%
+\hspace*{0.3em}
+}
+
+\newcommand{\citeinfo}[1]{
+\hspace{-.8em}{\scalefont{.5}{#1}}
+}
+
+% DURING TEXT
+
+% http://merkel.zoneo.net/Latex/natbib.php
+\let\oldcite\citealt
+\renewcommand\cite[1]{
+\citebox{\oldcite{#1}}
+}
+% http://newsgroups.derkeiler.com/Archive/Comp/comp.text.tex/2008-02/msg00382.html
+\usepackage{twoopt,ifmtarg}
+
+\makeatletter
+\def\@biblabel#1{\citebox{#1}}
+\makeatother
+
+\let\oldcitep\citealp
+\makeatletter
+\renewcommandtwoopt\citep[3][][]{%
+\begingroup\protected\def\harvardand{\&}
+\@ifmtarg{#1}
+{\citebox{\oldcitep{#3}}}%
+{\@ifmtarg{#2}
+{\citebox{\oldcitep[]{#3}}\citeinfo{#1}}
+{\citebox{\oldcitep[][]{#3}}\citeinfo{#2, #3}}}%
+\endgroup}
+\makeatother
+\protected\def\harvardand{and}
+
+\renewenvironment{quotation}
+% START ENVIRONMENT
+{
+%        % CHANGE FONT HERE .V.  %
+\it\begin{quote}\fontfamily{ptm}\selectfont
+}
+% CLOSE ENVIRONMENT
+{
+\end{quote}
+}
+
+% http://blog.nguyenvq.com/blog/2011/05/01/spacing-between-items-in-itemize-or-enumerate-environments-lists/
+% http://www.troubleshooters.com/linux/lyx/ownlists.htm#_Spacing_List_Items
+
+%\newlength{\wideitemsep}
+%\setlength{\wideitemsep}{\itemsep}
+%\addtolength{\wideitemsep}{-8pt}
+%\let\olditem\item
+%\renewcommand{\item}{\setlength{\itemsep}{\wideitemsep}\olditem}
+
+%\newlength{\wideparsep}
+%\setlength{\wideparsep}{\parsep}
+%\addtolength{\wideparsep}{-180pt}
+%\let\olditem\item
+%\renewcommand{\item}{\setlength{\parsep}{\wideparsep}\olditem}
+
+\newlength{\wideparskip}
+\setlength{\wideparskip}{\parskip}
+%\addtolength{\wideparskip}{-0.7em}
+\setlength{\wideparskip}{-.3\baselineskip}
+\let\olditem\item
+\renewcommand{\item}{\setlength{\parskip}{\wideparskip}\olditem}
+
+\usepackage{pdfpages}
+
+\newcommand\fullpage[1]{
+\includepdf[offset=0 0,scale=.8]
+{#1}
+}
+
+\newcommand\grafik[1]{
+\vspace{2mm} \begin{center}\epsfig{file=#1, width=.9\textwidth}\end{center} \vspace{2mm}
+}
+
+ 
+% ---------------------------------------------------------------------- %
+  \newcommand{\titlepages}[3]{
+   \vfill
+    \thispagestyle{empty}
+     \noindent                                  
+%  \put(-12,-6){
+    \epsfig{file=i/pdf/servus.pdf,height=.1\textwidth}
+%}
+
+ 
+ \vfill
+  \noindent #1 
+    \noindent #2 
+     \noindent #3 
+ 
+% \hspace*{0pt}
+%  \put(-12,-6){\epsfig{file=i/pdf/AJ_Recycling_Symbol.pdf,
+%          height=2\baselineskip}}\hspace{1.2em} {\Large{Please Recycle!}}
+
+  \medskip
+   \noindent\rule[1ex]{\textwidth}{.5pt}
+    \noindent
+              %          Copyright 
+              %          \copyright{-.25\baselineskip} % SPACING FRONT
+              %          {-2}{-3}                      % POSITION
+              %          {height=1.1\baselineskip}     % SCALE
+              %          {.8\baselineskip}             % SPACING BACK
+              %          2012  \zineauthor
+   \begin{quote}%
+                        \license
+   \end{quote}%
+
+   \noindent
+                        Any of the trademarks, service marks, collective 
+                        marks, design rights, personality rights or similar 
+                        rights that are mentioned, used or cited in this 
+                        book are the property of their respective owners. 
+                        Their use here does not imply that you may use them 
+                        for any other purpose other than for the same or a 
+                        similar informational use as contemplated by the 
+                        original authors under the GFDL licensing scheme.
+ \newpage
+ \thispagestyle{empty}
+ }
+% -------------------------------------------------------------------- %
+  \newcommand{\hardpagebreak}{\twocolumn[]\onecolumn}
