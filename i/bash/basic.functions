@@ -5,9 +5,9 @@
 
 # --------------------------------------------------------------------------- #
 
-function helloworld () {
+function HELLOWORLD() {
 
-  echo "Hello World"
+  echo "Hello World"  >> $PROCESSED
 
 }
 
@@ -15,23 +15,24 @@ function helloworld () {
 
 function GRAFIK() {
 
-  echo "INSERT GRAPHIC"
-  echo $1
-  echo $LINE
-
-  echo "\hardpagebreak" >> $PROCESSED
-
-  COUNT=1
-  while [ $COUNT -le 1000 ]
+  for PDF in `find . -name "*$1.pdf" | head -1`
    do
-       echo $COUNT      >> $PROCESSED
-       COUNT=`expr $COUNT + 1`
 
-  done
+      echo "\grafik{$PDF}" >> $PROCESSED
 
-  echo "\hardpagebreak" >> $PROCESSED
-
+ done
+  
 }
 
+function FULLPAGE() {
+
+  for PDF in `find . -name "*$1.pdf" | head -1`
+   do
+
+      echo "\fullpage{$PDF}" >> $PROCESSED
+
+ done
+  
+}
 
 

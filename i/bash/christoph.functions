@@ -1,0 +1,19 @@
+
+function VFILL() {
+
+  echo "\vfill"                   >> $PROCESSED
+
+}
+
+function SCALEFONT() {
+
+   echo "\scalefont{$1}"         >> $PROCESSED
+
+}
+
+function SWAPWORDS() {
+
+   sed -i "s/$1/$2/g" $PROCESSED
+
+}
+
