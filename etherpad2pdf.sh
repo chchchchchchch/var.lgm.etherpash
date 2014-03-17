@@ -6,11 +6,11 @@
 #
 # --------------------------------------------------------------------------- #
 
-   FUNCTIONS=tmp.functions
-  FNCTSBASIC=i/functions/basic.functions
+   FUNCTIONS=tempfncts.functions
+  FNCTSBASIC=i/bash/basic.functions
 
   cat $FNCTSBASIC > $FUNCTIONS
-
+  if [[ ! -z "$1" ]]; then cat $1 >> $FUNCTIONS ; fi
 
 # INCLUDE FUNCTIONS
   source $FUNCTIONS
@@ -20,16 +20,23 @@
   PADDUMP=dump.md
 
   OUTDIR=.
+  PDFDIR=o/pdf
+
 
 
 # --------------------------------------------------------------------------- #
-# DOWNLOAD PAD 
+# DUMP AND CONVERT PAD 
 # --------------------------------------------------------------------------- #
 
   wget -q -O  - $PAD2HTMLURL --no-check-certificate | \
   sed 's/^%/zDf7WV362LoP/g' | \
+  sed '/zDf7WV362LoP/s/$/\n\n/g' | \
+  sed '/zDf7WV362LoP/s/"/hFg76VCdJueW/g' | \
   pandoc --strict -r markdown -w latex | \
+  sed 's/hFg76VCdJueW/"/g' | \
   sed 's/zDf7WV362LoP/%/g' > $PADDUMP
+
+
 
 # --------------------------------------------------------------------------- #
 # PARSE COMMANDS 
@@ -88,11 +95,12 @@
   done
 
 
+
 # --------------------------------------------------------------------------- #
 # GENERATE PDF
 # --------------------------------------------------------------------------- #
 
-  TMPTEX=tmp.tex  
+  TMPTEX=temptex.tex  
 
   echo "\documentclass[8pt,cleardoubleempty]{scrbook}"            >  $TMPTEX
   echo "\usepackage[utf8]{inputenc}"                              >> $TMPTEX
@@ -118,18 +126,17 @@
 
   echo "\end{document}"                                           >> $TMPTEX
 
-
   pdflatex -interaction=nonstopmode \
            -output-directory $OUTDIR \
             $TMPTEX
-
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
 # --------------------------------------------------------------------------- #
 
-  mv ${TMPTEX%.*}.pdf `date +%s`.pdf
-  rm ${TMPTEX%.*}.* ${PADDUMP%%.*}.*
+  cp ${TMPTEX%.*}.pdf latest.pdf
+  mv ${TMPTEX%.*}.pdf $PDFDIR/`date +%s`.pdf
+  rm ${TMPTEX%.*}.* ${PADDUMP%%.*}.* $FUNCTIONS
 
 
 exit 0;
