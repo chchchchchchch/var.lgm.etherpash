@@ -1,0 +1,37 @@
+
+# GOOD TO KNOW:
+# - file to write to: $PROCESSED (add code with >>)
+# - current line: $LINE
+
+# --------------------------------------------------------------------------- #
+
+function helloworld () {
+
+  echo "Hello World"
+
+}
+
+# --------------------------------------------------------------------------- #
+
+function GRAFIK() {
+
+  echo "INSERT GRAPHIC"
+  echo $1
+  echo $LINE
+
+  echo "\hardpagebreak" >> $PROCESSED
+
+  COUNT=1
+  while [ $COUNT -le 1000 ]
+   do
+       echo $COUNT      >> $PROCESSED
+       COUNT=`expr $COUNT + 1`
+
+  done
+
+  echo "\hardpagebreak" >> $PROCESSED
+
+}
+
+
+
