@@ -2,13 +2,13 @@
 
 # --------------------------------------------------------------------------- #
 #                                                                             #
-# THIS IS FRAGILE, HANDLE WITH CARE.                                          #
+#  THIS IS FRAGILE, HANDLE WITH CARE.                                         #
 #                                                                             #
 # --------------------------------------------------------------------------- #
 #                                                                             #
 #  Copyright (C) 2014 LAFKON/Christoph Haag                                   #
 #                                                                             #
-#  This file is part of the id 'Operating Systems' Workshop                   #
+#  This file is part of the 'Operating Systems' Workshop at LGM 2014          #
 #                                                                             #
 #  etherpad2pdf.sh is free software: you can redistribute it and/or modify    #
 #  it under the terms of the GNU General Public License as published by       #
@@ -23,7 +23,7 @@
 # --------------------------------------------------------------------------- #
 
 
-   FUNCTIONS=tempfncts.functions
+   FUNCTIONS=collect.functions
   FNCTSBASIC=i/bash/basic.functions
 
   cat $FNCTSBASIC > $FUNCTIONS
@@ -40,7 +40,6 @@
   PDFDIR=o/pdf
 
 
-
 # --------------------------------------------------------------------------- #
 # DUMP AND CONVERT PAD 
 # --------------------------------------------------------------------------- #
@@ -52,7 +51,6 @@
   pandoc --strict -r markdown -w latex | \
   sed 's/hFg76VCdJueW/"/g' | \
   sed 's/zDf7WV362LoP/%/g' > $PADDUMP
-
 
 
 # --------------------------------------------------------------------------- #
@@ -112,7 +110,6 @@
   done
 
 
-
 # --------------------------------------------------------------------------- #
 # GENERATE PDF
 # --------------------------------------------------------------------------- #
@@ -130,7 +127,7 @@
   echo "\setlength\oddsidemargin{0mm}"                            >> $TMPTEX
   echo "\setlength\evensidemargin{0mm}"                           >> $TMPTEX
 
-  echo "\parindent=0pt"                                           >> $TMPTEX
+# echo "\parindent=0pt"                                           >> $TMPTEX
 
   echo "\begin{document}"                                         >> $TMPTEX
 
@@ -146,6 +143,7 @@
   pdflatex -interaction=nonstopmode \
            -output-directory $OUTDIR \
             $TMPTEX > /dev/null
+
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
