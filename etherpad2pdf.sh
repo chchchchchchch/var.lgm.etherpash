@@ -1,10 +1,27 @@
 #!/bin/bash
 
 # --------------------------------------------------------------------------- #
-# THIS IS FRAGILE, HANDLE WITH CARE
-#
-#
+#                                                                             #
+# THIS IS FRAGILE, HANDLE WITH CARE.                                          #
+#                                                                             #
 # --------------------------------------------------------------------------- #
+#                                                                             #
+#  Copyright (C) 2014 LAFKON/Christoph Haag                                   #
+#                                                                             #
+#  This file is part of the id 'Operating Systems' Workshop                   #
+#                                                                             #
+#  etherpad2pdf.sh is free software: you can redistribute it and/or modify    #
+#  it under the terms of the GNU General Public License as published by       #
+#  the Free Software Foundation, either version 3 of the License, or          #
+#  (at your option) any later version.                                        #
+#                                                                             #
+#  etherpad2pdf.sh is distributed in the hope that it will be useful,         #
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       #
+#  See the GNU General Public License for more details.                       #
+#                                                                             #
+# --------------------------------------------------------------------------- #
+
 
    FUNCTIONS=tempfncts.functions
   FNCTSBASIC=i/bash/basic.functions
@@ -128,7 +145,7 @@
 
   pdflatex -interaction=nonstopmode \
            -output-directory $OUTDIR \
-            $TMPTEX
+            $TMPTEX > /dev/null
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
