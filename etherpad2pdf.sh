@@ -22,16 +22,6 @@
 #                                                                             #
 # --------------------------------------------------------------------------- #
 
-
-   FUNCTIONS=collect.functions
-  FNCTSBASIC=i/bash/basic.functions
-
-  cat $FNCTSBASIC > $FUNCTIONS
-  if [[ ! -z "$1" ]]; then cat $1 >> $FUNCTIONS ; fi
-
-# INCLUDE FUNCTIONS
-  source $FUNCTIONS
-
   PADBASE=http://lgru.pad.constantvzw.org:8000
   PAD2HTMLURL=$PADBASE/ep/pad/export/197/latest?format=txt
   PADDUMP=dump.md
@@ -39,6 +29,15 @@
   OUTDIR=.
   PDFDIR=o/pdf
 
+   FUNCTIONS=collect.functions
+  FNCTSBASIC=i/bash/basic.functions
+
+  cat $FNCTSBASIC > $FUNCTIONS
+  if [[ ! -z "$1" ]]; then cat $1 >> $FUNCTIONS ; fi
+# --------------------------------------------------------------------------- #
+# INCLUDE FUNCTIONS
+# --------------------------------------------------------------------------- #
+  source $FUNCTIONS
 
 # --------------------------------------------------------------------------- #
 # DUMP AND CONVERT PAD 
@@ -50,7 +49,9 @@
   sed '/zDf7WV362LoP/s/"/hFg76VCdJueW/g' | \
   pandoc --strict -r markdown -w latex | \
   sed 's/hFg76VCdJueW/"/g' | \
-  sed 's/zDf7WV362LoP/%/g' > $PADDUMP
+  sed 's/zDf7WV362LoP/%/g' | \
+  sed '/^%/{N;s/\n.*//;}'  | \
+  sed 's/^ *$/fGcP29cFg/g'    > $PADDUMP
 
 
 # --------------------------------------------------------------------------- #
@@ -110,6 +111,7 @@
   done
 
 
+
 # --------------------------------------------------------------------------- #
 # GENERATE PDF
 # --------------------------------------------------------------------------- #
@@ -136,7 +138,7 @@
   echo "{}{}"                                                     >> $TMPTEX
   echo "\hardpagebreak"                                           >> $TMPTEX
 
-  cat $PROCESSED                                                  >> $TMPTEX
+  cat $PROCESSED | sed 's/fGcP29cFg/ /g'                          >> $TMPTEX
 
   echo "\end{document}"                                           >> $TMPTEX
 
