@@ -5,6 +5,14 @@
 
 # --------------------------------------------------------------------------- #
 
+function writeTeXsrc() {
+
+  echo "Hello World"
+
+}
+
+# --------------------------------------------------------------------------- #
+
 function HELLOWORLD() {
 
   echo "Hello World"  >> $PROCESSED
@@ -64,13 +72,6 @@ function VSPACE() {
 
 # --------------------------------------------------------------------------- #
 
-function LXXINEHEIGHT() {
-
-   echo "\linespread{$1}"          >> $PROCESSED
-}
-
-# --------------------------------------------------------------------------- #
-
 function EMPTYPAGE() {
 
    NUM=`echo $1 |  tr -d [:alpha:]`
@@ -91,6 +92,22 @@ function NEWPAGE() {
 
        echo "\newpage"        >> $PROCESSED
 
+}
+
+# --------------------------------------------------------------------------- #
+
+function GRAFIK-P() {
+
+  VAL=`echo $2 |  tr -d [:alpha:]`
+  if [ -z $VAL ]; then VAL=1 ; fi
+
+  for PDF in `find . -name "*$1.pdf" | head -1`
+   do
+
+      echo "\grafikp{$PDF}{$VAL}" >> $PROCESSED
+
+ done
+  
 }
 
 # --------------------------------------------------------------------------- #
