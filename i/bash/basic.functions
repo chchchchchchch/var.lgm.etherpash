@@ -1,13 +1,13 @@
 
 # GOOD TO KNOW:
-# - file to write to: $PROCESSED (add code with >>)
+# - where tex body is collected: $TMPTEX (add code with >>)
 # - current line: $LINE
 
 # --------------------------------------------------------------------------- #
 
 function writeTeXsrc() {
 
-  echo "Hello World"
+  echo "$1" >> $TMPTEX
 
 }
 
@@ -15,7 +15,7 @@ function writeTeXsrc() {
 
 function HELLOWORLD() {
 
-  echo "Hello World"  >> $PROCESSED
+  writeTeXsrc "Hello World"
 
 }
 
@@ -26,7 +26,7 @@ function GRAFIK() {
   for PDF in `find . -name "*$1.pdf" | head -1`
    do
 
-      echo "\grafik{$PDF}" >> $PROCESSED
+      writeTeXsrc "\grafik{$PDF}"
 
  done
   
@@ -39,7 +39,7 @@ function FULLPAGE() {
   for PDF in `find . -name "*$1.pdf" | head -1`
    do
 
-      echo "\fullpage{$PDF}" >> $PROCESSED
+      writeTeXsrc "\fullpage{$PDF}"
 
  done
   
@@ -49,8 +49,8 @@ function FULLPAGE() {
 
 function VFILL() {
 
-  echo "\newline"                >> $PROCESSED  
-  echo "\vfill"                  >> $PROCESSED
+  writeTeXsrc "\newline"
+  writeTeXsrc "\vfill"
 
 }
 
@@ -58,7 +58,7 @@ function VFILL() {
 
 function SCALEFONT() {
 
-   echo "\scalefont{$1}"         >> $PROCESSED
+   writeTeXsrc "\scalefont{$1}"
 
 }
 
@@ -66,8 +66,8 @@ function SCALEFONT() {
 
 function VSPACE() {
 
-   echo ""                        >> $PROCESSED
-   echo "\vspace{${1}em}"         >> $PROCESSED
+   writeTeXsrc ""
+   writeTeXsrc "\vspace{${1}em}"
 }
 
 # --------------------------------------------------------------------------- #
@@ -80,7 +80,7 @@ function EMPTYPAGE() {
    COUNT=0
    while [ $COUNT -lt $NUM ]
     do
-       echo "\emptypage"           >> $PROCESSED
+       writeTeXsrc "\emptypage"
        COUNT=`expr $COUNT + 1`
   done
 
@@ -90,7 +90,7 @@ function EMPTYPAGE() {
 
 function NEWPAGE() {
 
-       echo "\newpage"        >> $PROCESSED
+       writeTeXsrc "\newpage"
 
 }
 
@@ -103,10 +103,8 @@ function GRAFIK-P() {
 
   for PDF in `find . -name "*$1.pdf" | head -1`
    do
-
-      echo "\grafikp{$PDF}{$VAL}" >> $PROCESSED
-
- done
+      writeTeXsrc "\grafikp{$PDF}{$VAL}"
+  done
   
 }
 

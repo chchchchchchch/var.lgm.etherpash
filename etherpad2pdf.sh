@@ -55,8 +55,10 @@
 # PARSE COMMANDS 
 # --------------------------------------------------------------------------- #
 
-  PROCESSED=${PADDUMP%%.*}.tmp
-  if [ -f $PROCESSED ]; then rm $PROCESSED ; fi
+  TEXBODY=${PADDUMP%%.*}.tmp
+  TMPTEX=$TEXBODY
+  if [ -f $TMPTEX ]; then rm $TMPTEX ; fi
+
 
 
   for LINE in `cat $PADDUMP | sed 's/ /DieW73NaS03J/g'`
@@ -101,7 +103,7 @@
       # --------------------------------------------------- # 
       # APPEND LINE TO TEX FILE
 
-          echo "$LINE" >> $PROCESSED
+          echo "$LINE" >> $TEXBODY
 
         fi
       # --------------------------------------------------- # 
@@ -113,31 +115,33 @@
 # GENERATE PDF
 # --------------------------------------------------------------------------- #
 
-  TMPTEX=temptex.tex  
+  TEXCOMPLETE=tmptex.tex
+  TMPTEX=$TEXCOMPLETE
+  if [ -f $TMPTEX ]; then rm $TMPTEX ; fi
 
-  echo "\documentclass[8pt,cleardoubleempty]{scrbook}"            >  $TMPTEX
-  echo "\usepackage[utf8]{inputenc}"                              >> $TMPTEX
-  echo "\usepackage{i/sty/A5}"                                    >> $TMPTEX
-  echo "\usepackage{i/sty/140129}"                                >> $TMPTEX
-  echo "\setlength\textheight{170mm}"                             >> $TMPTEX
-  echo "\setlength\topmargin{-17mm}"                              >> $TMPTEX
+  writeTeXsrc "\documentclass[8pt,cleardoubleempty]{scrbook}"
+  writeTeXsrc "\usepackage[utf8]{inputenc}"
+  writeTeXsrc "\usepackage{i/sty/A5}"
+  writeTeXsrc "\usepackage{i/sty/140129}"
+  writeTeXsrc "\setlength\textheight{170mm}"
+  writeTeXsrc "\setlength\topmargin{-17mm}"
 
-  echo "\setlength\textwidth{95mm}"                               >> $TMPTEX
-  echo "\setlength\oddsidemargin{0mm}"                            >> $TMPTEX
-  echo "\setlength\evensidemargin{0mm}"                           >> $TMPTEX
+  writeTeXsrc "\setlength\textwidth{95mm}"
+  writeTeXsrc "\setlength\oddsidemargin{0mm}"
+  writeTeXsrc "\setlength\evensidemargin{0mm}"
 
-# echo "\parindent=0pt"                                           >> $TMPTEX
+# writeTeXsrc "\parindent=0pt"
 
-  echo "\begin{document}"                                         >> $TMPTEX
+  writeTeXsrc "\begin{document}"
 
-  echo "\titlepages{%"                                            >> $TMPTEX
-  echo "\url{$PAD2HTMLURL}}"                                      >> $TMPTEX
-  echo "{}{}"                                                     >> $TMPTEX
-  echo "\hardpagebreak"                                           >> $TMPTEX
+  writeTeXsrc "\titlepages{%"
+  writeTeXsrc "\url{$PAD2HTMLURL}}"
+  writeTeXsrc "{}{}"
+  writeTeXsrc "\emptypage"
 
-  cat $PROCESSED | sed 's/fGcP29cFg/ /g'                          >> $TMPTEX
+  cat $TEXBODY | sed 's/fGcP29cFg/ /g' >> $TMPTEX
 
-  echo "\end{document}"                                           >> $TMPTEX
+  writeTeXsrc "\end{document}"
 
   pdflatex -interaction=nonstopmode \
            -output-directory $OUTDIR \
