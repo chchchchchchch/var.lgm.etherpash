@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# --------------------------------------------------------------------------- #
-#                                                                             #
-#  THIS IS FRAGILE, HANDLE WITH CARE.                                         #
-#                                                                             #
+# THIS IS FRAGILE, HANDLE WITH CARE.                                          #
 # --------------------------------------------------------------------------- #
 #                                                                             #
 #  Copyright (C) 2014 LAFKON/Christoph Haag                                   #
