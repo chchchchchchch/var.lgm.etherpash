@@ -41,7 +41,8 @@ function FULLPAGE() {
 
 function VFILL() {
 
-  echo "\vfill"                   >> $PROCESSED
+  echo "\newline"                >> $PROCESSED  
+  echo "\vfill"                  >> $PROCESSED
 
 }
 
@@ -52,3 +53,45 @@ function SCALEFONT() {
    echo "\scalefont{$1}"         >> $PROCESSED
 
 }
+
+# --------------------------------------------------------------------------- #
+
+function VSPACE() {
+
+   echo ""                        >> $PROCESSED
+   echo "\vspace{${1}em}"         >> $PROCESSED
+}
+
+# --------------------------------------------------------------------------- #
+
+function LXXINEHEIGHT() {
+
+   echo "\linespread{$1}"          >> $PROCESSED
+}
+
+# --------------------------------------------------------------------------- #
+
+function EMPTYPAGE() {
+
+   NUM=`echo $1 |  tr -d [:alpha:]`
+   if [ -z $NUM ]; then NUM=1 ; fi
+
+   COUNT=0
+   while [ $COUNT -lt $NUM ]
+    do
+       echo "\emptypage"           >> $PROCESSED
+       COUNT=`expr $COUNT + 1`
+  done
+
+}
+
+# --------------------------------------------------------------------------- #
+
+function NEWPAGE() {
+
+       echo "\newpage"        >> $PROCESSED
+
+}
+
+# --------------------------------------------------------------------------- #
+
