@@ -7,6 +7,49 @@ function SWAPWORDS() {
 
 function ODDSIDEMARGIN() {
 
- writeTeXsrc "\setlength\oddsidemargin{$1}"
+   writeTeXsrc "\setlength\oddsidemargin{$1}"
 
 }
+
+function REPEATRANDOMPARAGRAPHS() {
+
+   sed 's/fGcP29cFg/fGcP29cFg\n/g' $TMPTEX | \
+   sed '/./{H;d;};x;s/\n/={NL}=/g' | \
+   awk 'BEGIN{FS="\n"; RS=""} { if (NF > 6) print $0, "\n";}' | \
+   shuf -n $1 | \
+   sed '1s/={NL}=//;s/={NL}=/\n/g' | \
+   sed 's/fGcP29cFg\n/fGcP29cFg/g'      >> $TMPTEX
+
+}
+
+function XXWWWGRAFIK() {
+
+#  echo $1
+#  TMPDIR=tmp
+#  NAME=`echo $1 | rev | cut -d "/" -f 1 | rev`
+#  wget -O $TMPDIR/$NAME  $1
+
+#  writeTeXsrc "\grafik{$TMPDIR/$NAME}"
+
+   echo "www"
+
+}
+
+function MAGICK() {
+
+   WORD=`pandoc -r latex -w markdown $PADDUMP | \
+         grep -v $EMPTYLINE | \
+         sed 's/ /\n/g' | \
+         tr -d [:punct:] | \
+         sort | \
+         grep -v ^$ | \
+         uniq -c | \
+         sort -nr | \
+         head -1 | \
+         awk '{print $2}'`
+   
+   echo $WORD
+
+}
+
+
