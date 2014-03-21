@@ -15,6 +15,7 @@ function writeTeXsrc() {
 
 function HELLOWORLD() {
 
+  echo "Hello World!"
   writeTeXsrc "Hello World"
 
 }
