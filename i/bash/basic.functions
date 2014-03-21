@@ -24,11 +24,12 @@ function HELLOWORLD() {
 
 function GRAFIK() {
 
-  for PDF in `find . -name "*$1*" | egrep "\.pdf$|\.jpg$" | head -1`
+
+  echo $1
+
+  for IMG in `find . -name "*$1*" | egrep "\.pdf$|\.jpg$" | head -1`
    do
-
-      writeTeXsrc "\grafik{$PDF}"
-
+      writeTeXsrc "\grafik{$IMG}"
  done
   
 }
