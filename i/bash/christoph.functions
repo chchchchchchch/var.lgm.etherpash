@@ -5,3 +5,8 @@ function SWAPWORDS() {
 
 }
 
+function ODDSIDEMARGIN() {
+
+ writeTeXsrc "\setlength\oddsidemargin{$1}"
+
+}
