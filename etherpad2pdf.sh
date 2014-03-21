@@ -143,13 +143,13 @@
 
   writeTeXsrc "\end{document}"
 
-#  pdflatex -interaction=nonstopmode \
-#           -output-directory $OUTDIR \
-#            $TMPTEX > /dev/null
-
   pdflatex -interaction=nonstopmode \
            -output-directory $OUTDIR \
-            $TMPTEX
+            $TMPTEX > /dev/null
+
+#  pdflatex -interaction=nonstopmode \
+#           -output-directory $OUTDIR \
+#            $TMPTEX
 
 
 # --------------------------------------------------------------------------- #
