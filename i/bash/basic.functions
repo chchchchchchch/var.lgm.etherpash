@@ -15,7 +15,7 @@ function writeTeXsrc() {
 
 function HELLOWORLD() {
 
-  echo "Hello World!"
+# echo "Hello World!"
   writeTeXsrc "Hello World"
 
 }
@@ -25,7 +25,7 @@ function HELLOWORLD() {
 function GRAFIK() {
 
 
-  echo $1
+# echo $1
 
   for IMG in `find . -name "*$1*" | egrep "\.pdf$|\.jpg$" | head -1`
    do
