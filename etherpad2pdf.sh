@@ -26,7 +26,9 @@
   OUTDIR=.
   PDFDIR=o/pdf
 
-   FUNCTIONS=collect.functions
+  EMPTYLINE=fGcP29cFg
+
+  FUNCTIONS=collect.functions
   FNCTSBASIC=i/bash/basic.functions
 
   cat $FNCTSBASIC > $FUNCTIONS
@@ -44,11 +46,12 @@
   sed 's/^%/zDf7WV362LoP/g' | \
   sed '/zDf7WV362LoP/s/$/\n\n/g' | \
   sed '/zDf7WV362LoP/s/"/hFg76VCdJueW/g' | \
-  pandoc -r markdown -w latex | \
+  pandoc --strict -r markdown -w latex | \
   sed 's/hFg76VCdJueW/"/g' | \
+  sed '/zDf7WV362LoP/s/\\//g' | \
   sed 's/zDf7WV362LoP/%/g' | \
   sed '/^%/{N;s/\n.*//;}'  | \
-  sed 's/^ *$/fGcP29cFg/g'    > $PADDUMP
+  sed "s/^ *$/$EMPTYLINE/g"    > $PADDUMP
 
 
 # --------------------------------------------------------------------------- #
@@ -58,7 +61,6 @@
   TEXBODY=${PADDUMP%%.*}.tmp
   TMPTEX=$TEXBODY
   if [ -f $TMPTEX ]; then rm $TMPTEX ; fi
-
 
 
   for LINE in `cat $PADDUMP | sed 's/ /DieW73NaS03J/g'`
@@ -139,7 +141,7 @@
 # writeTeXsrc "{}{}"
 # writeTeXsrc "\emptypage"
 
-  cat $TEXBODY | sed 's/fGcP29cFg/ /g' >> $TMPTEX
+  cat $TEXBODY | sed "s/$EMPTYLINE/ /g" >> $TMPTEX
 
   writeTeXsrc "\end{document}"
 
