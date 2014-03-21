@@ -130,14 +130,14 @@
   writeTeXsrc "\setlength\oddsidemargin{0mm}"
   writeTeXsrc "\setlength\evensidemargin{0mm}"
 
-# writeTeXsrc "\parindent=0pt"
+  writeTeXsrc "\parindent=0pt"
 
   writeTeXsrc "\begin{document}"
 
-  writeTeXsrc "\titlepages{%"
-  writeTeXsrc "\url{$PAD2HTMLURL}}"
-  writeTeXsrc "{}{}"
-  writeTeXsrc "\emptypage"
+# writeTeXsrc "\titlepages{%"
+# writeTeXsrc "\url{$PAD2HTMLURL}}"
+# writeTeXsrc "{}{}"
+# writeTeXsrc "\emptypage"
 
   cat $TEXBODY | sed 's/fGcP29cFg/ /g' >> $TMPTEX
 
