@@ -44,7 +44,7 @@
   sed 's/^%/zDf7WV362LoP/g' | \
   sed '/zDf7WV362LoP/s/$/\n\n/g' | \
   sed '/zDf7WV362LoP/s/"/hFg76VCdJueW/g' | \
-  pandoc --strict -r markdown -w latex | \
+  pandoc -r markdown -w latex | \
   sed 's/hFg76VCdJueW/"/g' | \
   sed 's/zDf7WV362LoP/%/g' | \
   sed '/^%/{N;s/\n.*//;}'  | \
