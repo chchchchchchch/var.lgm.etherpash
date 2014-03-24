@@ -22,33 +22,6 @@ function HELLOWORLD() {
 
 # --------------------------------------------------------------------------- #
 
-function GRAFIK() {
-
-
-# echo $1
-
-  for IMG in `find . -name "*$1*" | egrep "\.pdf$|\.jpg$" | head -1`
-   do
-      writeTeXsrc "\grafik{$IMG}"
- done
-  
-}
-
-# --------------------------------------------------------------------------- #
-
-function FULLPAGE() {
-
-  for PDF in `find . -name "*$1.pdf" | head -1`
-   do
-
-      writeTeXsrc "\fullpage{$PDF}"
-
- done
-  
-}
-
-# --------------------------------------------------------------------------- #
-
 function VFILL() {
 
   writeTeXsrc "\newline"
@@ -112,3 +85,106 @@ function GRAFIK-P() {
 
 # --------------------------------------------------------------------------- #
 
+
+function SWAPWORDS() {
+
+   sed -i "s/$1/$2/g" $TMPTEX
+
+}
+
+function ODDSIDEMARGIN() {
+
+   writeTeXsrc "\setlength\oddsidemargin{$1}"
+
+}
+
+
+# --------------------------------------------------------------------------- #
+
+function GRAFIK() {
+
+  NAME=`echo $1 | rev | cut -d "/" -f 1 | \
+        cut -d "." -f 2- | rev`
+  SUPPORTED="pdf jpg svg eps"
+
+  TEXMACRO=\\$2 ;
+
+  if [ `echo $TEXMACRO | wc -c` -lt 3 ]; then
+   TEXMACRO=\\grafik
+  fi
+
+
+  if [ `echo $NAME | wc -c` -gt 1 ]; then
+
+ # -------------------------------------------------------------------- #
+ # IF IMAGE IS ONLINE 
+
+   IFHTTP=`echo $1 | grep "http://" | wc -l`
+   if [ $IFHTTP -ge 1 ]; then
+
+     BASE=`echo $1 | rev | cut -d "." -f 2- | rev`
+     
+     for TYPE in $SUPPORTED
+      do
+         URL=${BASE}.$TYPE
+         RESPONSE=`curl  -s -o /dev/null -IL -w "%{http_code}" $URL`
+    
+         if [ $RESPONSE == '200' ]; then
+    
+          # echo $URL "exists"
+            wget -P $TMPDIR $URL > /dev/null 2>&1
+
+         else
+
+          # echo $URL "does not exist"
+            sleep 0 
+
+         fi
+     done
+
+    fi
+
+ INCLUDE="no"
+   
+ for TYPE in $SUPPORTED
+  do
+     IMG=`find . -name "*${NAME}.$TYPE*" | head -1`
+     EXISTS=`echo $IMG | wc -c`
+ 
+     if [ $EXISTS -gt 1 ]; then
+
+        if [ $TYPE == pdf ] && [ $INCLUDE == "no" ]; then
+   
+          # echo $IMG " exists"
+            writeTeXsrc "$TEXMACRO{$IMG}"
+            INCLUDE="yes"
+
+        fi
+        if [ $TYPE == jpg ] && [ $INCLUDE == "no" ]; then
+   
+          # echo $IMG " exists"
+            writeTeXsrc "$TEXMACRO{$IMG}"
+            INCLUDE="yes"
+
+        fi
+        if [ $TYPE == svg ] && [ $INCLUDE == "no" ]; then
+   
+          # echo $IMG " exists"
+            inkscape --export-pdf=$TMPDIR/${NAME}.pdf $IMG
+            writeTeXsrc "$TEXMACRO{$TMPDIR/${NAME}.pdf}"
+            INCLUDE="yes"
+
+        fi
+        if [ $TYPE == eps ] && [ $INCLUDE == "no" ]; then
+   
+          # echo $IMG " exists"
+            writeTeXsrc "$TEXMACRO{$IMG}"
+            INCLUDE="yes"
+
+        fi
+     fi
+  done
+
+  fi
+
+}
