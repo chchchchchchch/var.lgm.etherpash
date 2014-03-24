@@ -116,9 +116,14 @@
 %         % CHANGE FONT HERE .V.  %
 %\allsectionsfont{\fontfamily{bun}\selectfont}
 
-\renewcommand*\thechapter{}
-\renewcommand*\thesection{\arabic{section}}
-% \renewcommand*\thesubsection{\arabic{subsection}}
+%\renewcommand*\thechapter{}
+% \renewcommand*\thesection{\arabic{section}}
+%  \renewcommand*\thesubsection{\arabic{subsection}}
+
+% NO SECTION NUMBERS
+\renewcommand*\thechapter{\hspace{-.5em}}
+ \renewcommand*\thesection{\hspace{-.5em}}
+  \renewcommand*\thesubsection{\hspace{-.5em}}
 
 %\titleformat{\chapter}[display]{\huge\bfseries}{\thechapter}{0pt}{}
 %\titlespacing{\chapter}
