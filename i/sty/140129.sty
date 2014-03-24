@@ -13,6 +13,7 @@
  \usepackage{titlesec}
  \usepackage{scalefnt}
  \usepackage{mflogo}
+ \usepackage{wrapfig}
  \usepackage{natbib}
  \usepackage{listings} 
  \usepackage{makeidx} 
@@ -208,19 +209,30 @@
 
 \usepackage{pdfpages}
 
-\newcommand\fullpage[1]{
-\includepdf[offset=0 0,scale=.8]
+\newcommand\grafikfullpage[3]{
+\includepdf[offset=0 0,scale=#2, angle=#3]
 {#1}
 }
 
-\newcommand\grafik[1]{
-\vspace{2mm} \begin{center}\epsfig{file=#1, width=.9\textwidth}\end{center} \vspace{2mm}
+\newcommand\grafikinline[3]{
+ \hfill\epsfig{file=#1,width=#2\paperwidth,angle=#3}\hfill
 }
 
-\newcommand\grafikp[2]{
- \hfill\epsfig{file=#1,width=#2\textwidth}\hfill
-}
+\newlength{\wrapwidth}
  
+\newcommand\grafikside[3]{
+\setlength{\wrapwidth}{#2\paperwidth}
+ \begin{wrapfigure}{r}{.8\wrapwidth}
+ \vspace{-20pt}
+  \begin{center}
+    \includegraphics[width=\wrapwidth,angle=#3]{#1}
+  \end{center}
+ % \caption{A gull}
+ \vspace{-20pt}
+ \end{wrapfigure}
+}
+
+
 % ---------------------------------------------------------------------- %
   \newcommand{\titlepages}[3]{
    \vfill

@@ -21,10 +21,11 @@
 
   PADBASE=http://lgru.pad.constantvzw.org:8000
   PAD2HTMLURL=$PADBASE/ep/pad/export/197/latest?format=txt
-  PADDUMP=dump.md
+  PADDUMP=dump.tex
 
   OUTDIR=.
   PDFDIR=o/pdf
+  TMPDIR=tmp
 
   EMPTYLINE="EMPTY-LINE-EMPTY-LINE-EMPTY-LINE-TEMPORARY-NOT"
 
@@ -42,17 +43,19 @@
 # DUMP AND CONVERT PAD 
 # --------------------------------------------------------------------------- #
 
-  wget -q -O  - $PAD2HTMLURL --no-check-certificate | \
-  sed 's/^%/zDf7WV362LoP/g' | \
-  sed '/zDf7WV362LoP/s/$/\n\n/g' | \
-  sed '/zDf7WV362LoP/s/"/hFg76VCdJueW/g' | \
-  sed '/zDf7WV362LoP/s/ /c8SJu53LDCNN/g' | \
-  pandoc -r markdown -w latex | \
-  sed 's/hFg76VCdJueW/"/g' | \
+  wget -q -O  - $PAD2HTMLURL --no-check-certificate | # DOWNLOAD PAD
+  sed 's/^%/zDf7WV362LoP/g' |                         # SAVE FROM PANDOC
+  sed '/zDf7WV362LoP/s/$/\n\n/g' |                    # ADD NEWLINE IF START %
+  sed '/zDf7WV362LoP/s/"/hFg76VCdJueW/g' |            # SAVE FROM PANDOC IF START %
+  sed '/zDf7WV362LoP/s/ /c8SJu53LDCNN/g' |            # SAVE FROM PANDOC
+  sed '/zDf7WV362LoP/s/\\/SlasH328d1G/g' |            # SAVE FROM PANDOC
+  pandoc -r markdown -w latex |                       # MD TO LATEX
+  sed 's/hFg76VCdJueW/"/g' |                          # BACK TO ORIGINAL
   sed '/zDf7WV362LoP/s/\\//g' | \
   sed 's/zDf7WV362LoP/%/g' | \
   sed '/^%/{N;s/\n.*//;}'  | \
   sed '/^%/s/c8SJu53LDCNN/ /g' | \
+  sed '/^%/s/SlasH328d1G/\\/g' | \
   sed "s/^ *$/$EMPTYLINE/g"    > $PADDUMP
 
 
@@ -155,6 +158,7 @@
 #           -output-directory $OUTDIR \
 #            $TMPTEX
 
+  cp $TMPTEX debug.tex
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
@@ -163,6 +167,7 @@
   cp ${TMPTEX%.*}.pdf latest.pdf
   mv ${TMPTEX%.*}.pdf $PDFDIR/`date +%s`.pdf
   rm ${TMPTEX%.*}.* ${PADDUMP%%.*}.* $FUNCTIONS
+  rm $TMPDIR/*.*
 
 
 exit 0;

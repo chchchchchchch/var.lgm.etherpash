@@ -107,14 +107,23 @@ function GRAFIK() {
         cut -d "." -f 2- | rev`
   SUPPORTED="pdf jpg svg eps"
 
-  TEXMACRO=\\$2 ;
+  TEXMACRO=\\grafik`echo $2 | egrep "^inline$|^fullpage$|^side$"`
+  if [ `echo $TEXMACRO | wc -c` -le 8 ]; then
+   TEXMACRO=\\grafikinline
+  fi
 
-  if [ `echo $TEXMACRO | wc -c` -lt 3 ]; then
-   TEXMACRO=\\grafik
+  WIDTH=`echo $3 | sed 's/[^0-9\.]*//g'`
+  if [ `echo $WIDTH | wc -c` -le 1 ]; then
+   WIDTH=.5
+  fi
+
+  ROTATE=`echo $4 | sed 's/[^0-9-]*//g'`
+  if [ `echo $ROTATE | wc -c` -le 2 ]; then
+   ROTATE=0
   fi
 
 
-  if [ `echo $NAME | wc -c` -gt 1 ]; then
+ if [ `echo $NAME | wc -c` -gt 1 ]; then
 
  # -------------------------------------------------------------------- #
  # IF IMAGE IS ONLINE 
@@ -144,47 +153,49 @@ function GRAFIK() {
 
     fi
 
- INCLUDE="no"
+ # -------------------------------------------------------------------- #
+
+   INCLUDE="no"
+     
+   for TYPE in $SUPPORTED
+    do
+       IMG=`find . -name "*${NAME}.$TYPE" | head -1`
+       EXISTS=`echo $IMG | wc -c`
    
- for TYPE in $SUPPORTED
-  do
-     IMG=`find . -name "*${NAME}.$TYPE*" | head -1`
-     EXISTS=`echo $IMG | wc -c`
- 
-     if [ $EXISTS -gt 1 ]; then
+       if [ $EXISTS -gt 1 ]; then
+  
+          if [ $TYPE == pdf ] && [ $INCLUDE == "no" ]; then
+     
+            # echo $IMG " exists"
+              writeTeXsrc "$TEXMACRO{$IMG}{$WIDTH}{$ROTATE}"
+              INCLUDE="yes"
+  
+          fi
+          if [ $TYPE == jpg ] && [ $INCLUDE == "no" ]; then
+     
+            # echo $IMG " exists"
+              writeTeXsrc "$TEXMACRO{$IMG}{$WIDTH}{$ROTATE}"
+              INCLUDE="yes"
+  
+          fi
+          if [ $TYPE == svg ] && [ $INCLUDE == "no" ]; then
+     
+            # echo $IMG " exists"
+              inkscape --export-pdf=$TMPDIR/${NAME}.pdf $IMG
+              writeTeXsrc "$TEXMACRO{$TMPDIR/${NAME}.pdf}{$WIDTH}{$ROTATE}"
+              INCLUDE="yes"
+  
+          fi
+          if [ $TYPE == eps ] && [ $INCLUDE == "no" ]; then
+     
+            # echo $IMG " exists"
+              writeTeXsrc "$TEXMACRO{$IMG}{$WIDTH}{$ROTATE}"
+              INCLUDE="yes"
+  
+          fi
+       fi
+    done
 
-        if [ $TYPE == pdf ] && [ $INCLUDE == "no" ]; then
-   
-          # echo $IMG " exists"
-            writeTeXsrc "$TEXMACRO{$IMG}"
-            INCLUDE="yes"
-
-        fi
-        if [ $TYPE == jpg ] && [ $INCLUDE == "no" ]; then
-   
-          # echo $IMG " exists"
-            writeTeXsrc "$TEXMACRO{$IMG}"
-            INCLUDE="yes"
-
-        fi
-        if [ $TYPE == svg ] && [ $INCLUDE == "no" ]; then
-   
-          # echo $IMG " exists"
-            inkscape --export-pdf=$TMPDIR/${NAME}.pdf $IMG
-            writeTeXsrc "$TEXMACRO{$TMPDIR/${NAME}.pdf}"
-            INCLUDE="yes"
-
-        fi
-        if [ $TYPE == eps ] && [ $INCLUDE == "no" ]; then
-   
-          # echo $IMG " exists"
-            writeTeXsrc "$TEXMACRO{$IMG}"
-            INCLUDE="yes"
-
-        fi
-     fi
-  done
-
-  fi
+ fi
 
 }
