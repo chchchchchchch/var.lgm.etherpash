@@ -26,7 +26,7 @@
   OUTDIR=.
   PDFDIR=o/pdf
 
-  EMPTYLINE=fGcP29cFg
+  EMPTYLINE="EMPTY-LINE-EMPTY-LINE-EMPTY-LINE-TEMPORARY-NOT"
 
   FUNCTIONS=collect.functions
   FNCTSBASIC=i/bash/basic.functions
@@ -46,11 +46,13 @@
   sed 's/^%/zDf7WV362LoP/g' | \
   sed '/zDf7WV362LoP/s/$/\n\n/g' | \
   sed '/zDf7WV362LoP/s/"/hFg76VCdJueW/g' | \
-  pandoc --strict -r markdown -w latex | \
+  sed '/zDf7WV362LoP/s/ /c8SJu53LDCNN/g' | \
+  pandoc -r markdown -w latex | \
   sed 's/hFg76VCdJueW/"/g' | \
   sed '/zDf7WV362LoP/s/\\//g' | \
   sed 's/zDf7WV362LoP/%/g' | \
   sed '/^%/{N;s/\n.*//;}'  | \
+  sed '/^%/s/c8SJu53LDCNN/ /g' | \
   sed "s/^ *$/$EMPTYLINE/g"    > $PADDUMP
 
 
@@ -63,11 +65,11 @@
   if [ -f $TMPTEX ]; then rm $TMPTEX ; fi
 
 
-  for LINE in `cat $PADDUMP | sed 's/ /DieW73NaS03J/g'`
+  for LINE in `cat $PADDUMP | sed 's, ,DieW73NaS03J,g'`
    do 
       # --------------------------------------------------- # 
       # RESTORE SPACES
-        LINE=`echo $LINE | sed 's/DieW73NaS03J/ /g'`
+        LINE=`echo $LINE | sed 's,DieW73NaS03J, ,g'`
 
       # --------------------------------------------------- #  
       # CHECK IF LINE STARTS WITH A %
@@ -80,7 +82,7 @@
            CMD=`echo $LINE | \
                 cut -d "%" -f 2 | \
                 cut -d ":" -f 1 | \
-                sed 's/ //g'`
+                sed 's, ,,g'`
            ARG=`echo $LINE | cut -d ":" -f 2-`
 
       # --------------------------------------------------- # 
