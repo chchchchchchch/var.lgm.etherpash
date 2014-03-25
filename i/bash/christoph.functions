@@ -35,21 +35,32 @@ function XXWWWGRAFIK() {
 
 }
 
-function MAGICK() {
+# function MAGICK() {
+# 
+#    WORD=`pandoc -r latex -w markdown $PADDUMP | \
+#          grep -v $EMPTYLINE | \
+#          sed 's/ /\n/g' | \
+#          tr -d [:punct:] | \
+#          sort | \
+#          grep -v ^$ | \
+#          uniq -c | \
+#          sort -nr | \
+#          head -1 | \
+#          awk '{print $2}'`
+#    
+#    echo $WORD
+# 
+# }
 
-   WORD=`pandoc -r latex -w markdown $PADDUMP | \
-         grep -v $EMPTYLINE | \
-         sed 's/ /\n/g' | \
-         tr -d [:punct:] | \
-         sort | \
-         grep -v ^$ | \
-         uniq -c | \
-         sort -nr | \
-         head -1 | \
-         awk '{print $2}'`
-   
-   echo $WORD
+function INCLUDEPAD() {
+
+  PADNUM=$1
+  PADBASE=http://lgru.pad.constantvzw.org:8000
+  PAD2HTMLURL=$PADBASE/ep/pad/export/$PADNUM/latest?format=txt
+
+  wget -q -O  - $PAD2HTMLURL --no-check-certificate | \
+  grep -v ^% |
+  pandoc -r markdown -w latex >> $TEXBODY
 
 }
-
 
