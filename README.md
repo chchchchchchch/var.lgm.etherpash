@@ -10,6 +10,7 @@ function file)
 
 NEEDED SOFTWARE:
 
+pandoc
 texlive-extra-utils 
 texlive-generic-extra
 texlive-latex-extra
