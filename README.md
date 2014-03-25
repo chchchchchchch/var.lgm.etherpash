@@ -12,3 +12,6 @@ NEEDED SOFTWARE:
 
 texlive-extra-utils 
 texlive-generic-extra
+texlive-latex-extra
+texlive-fonts-extra 
+texlive-fonts-recommended
