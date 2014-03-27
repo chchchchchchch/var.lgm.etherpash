@@ -1,0 +1,28 @@
+
+% -------------------------------------------------------------------- %
+  \newcommand\grafikfullpage[3]{
+  \includepdf[offset=0 0,scale=#2, angle=#3]
+  {#1}
+  }
+% -------------------------------------------------------------------- %
+  \newcommand\grafikinline[3]{
+  \hfill\epsfig{file=#1,width=#2\paperwidth,angle=#3}\hfill
+  }
+% -------------------------------------------------------------------- %
+  \newlength{\wrapwidth} 
+   \newcommand\grafikside[3]{
+    \setlength{\wrapwidth}{#2\paperwidth}
+   \begin{wrapfigure}{r}{.8\wrapwidth}
+    \vspace{-10pt}
+     \begin{center}
+      \includegraphics[width=\wrapwidth,angle=#3]{#1}
+   \end{center}
+    \vspace{-10pt}
+  \end{wrapfigure}
+  }
+% -------------------------------------------------------------------- %
+  \newcommand{\emptypage}{
+   \twocolumn[]\thispagestyle{empty}
+    \onecolumn}
+% -------------------------------------------------------------------- %
+

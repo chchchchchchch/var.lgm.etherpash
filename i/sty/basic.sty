@@ -1,0 +1,156 @@
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % 140129.sty                                          %
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ \usepackage[pdftex]{epsfig}
+ \usepackage{hyperref}
+ \usepackage[german,english]{babel}
+ \usepackage{pslatex}
+ \usepackage[T1]{fontenc}
+ \usepackage{fancyhdr}
+ \usepackage{pdfpages}
+ \usepackage{titlesec}
+ \usepackage{scalefnt}
+ \usepackage{mflogo}
+ \usepackage{wrapfig}
+ \usepackage{natbib}
+ \usepackage{listings} 
+ \usepackage{makeidx} 
+ % A5
+ \usepackage{geometry}
+ \geometry{paperwidth=148mm,paperheight=210mm}
+ \makeindex
+
+ \sloppy
+ \renewcommand{\ttdefault}{pcr}
+ \usepackage{helvet}
+ \renewcommand{\encodingdefault}{T1}
+ \renewcommand{\rmdefault}{phv}
+
+ \setlength{\footskip}{10mm}
+ % ABSTAND TRENNLINIE FUSSNOTEN
+  \renewcommand{\footnoterule}{
+   \vspace*{2mm}
+    \noindent
+     \rule{\textwidth}{0.5pt}{
+      \vspace*{1mm}
+   }}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \setlength\topmargin{-20mm}
+% \setlength\oddsidemargin{-5mm}
+% \setlength\evensidemargin{-10mm}
+% \setlength\textheight{165mm}
+% \setlength\textwidth{105mm}
+
+ \setlength\topmargin{-17mm}
+ \setlength\oddsidemargin{0mm}
+ \setlength\evensidemargin{0mm}
+ \setlength\textheight{170mm}
+ \setlength\textwidth{95mm}
+
+ \parindent=0pt
+
+% CHANGE HEADLINES
+% \usepackage{sectsty}
+%         % CHANGE FONT HERE .V.  %
+%\allsectionsfont{\fontfamily{bun}\selectfont}
+
+%\renewcommand*\thechapter{}
+% \renewcommand*\thesection{\arabic{section}}
+%  \renewcommand*\thesubsection{\arabic{subsection}}
+
+% NO SECTION NUMBERS
+\renewcommand*\thechapter{\hspace{-.5em}}
+ \renewcommand*\thesection{\hspace{-.5em}}
+  \renewcommand*\thesubsection{\hspace{-.5em}}
+
+%\titleformat{\chapter}[display]{\huge\bfseries}{\thechapter}{0pt}{}
+%\titlespacing{\chapter}
+%{0pc}{-17mm}{3em}[0pc]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CITATION %
+
+\usepackage{color}
+\newcommand{\citebox}[1]{%
+%\hspace*{1em}
+%\setlength\fboxsep{2pt}%
+%\setlength\fboxrule{0.2pt}%
+%\hspace*{-2.3em}%
+%\noindent\fbox{%
+\hspace*{-0.7em}
+{\bf{~\fontfamily{ppl}\selectfont%
+#1}}%
+% \begin{scriptsize}#1\end{scriptsize}%
+%}%
+\hspace*{0.3em}
+}
+
+\newcommand{\citeinfo}[1]{
+\hspace{-.8em}{\scalefont{.5}{#1}}
+}
+
+% DURING TEXT
+
+% http://merkel.zoneo.net/Latex/natbib.php
+\let\oldcite\citealt
+\renewcommand\cite[1]{
+\citebox{\oldcite{#1}}
+}
+% http://newsgroups.derkeiler.com/Archive/Comp/comp.text.tex/2008-02/msg00382.html
+\usepackage{twoopt,ifmtarg}
+
+\makeatletter
+\def\@biblabel#1{\citebox{#1}}
+\makeatother
+
+\let\oldcitep\citealp
+\makeatletter
+\renewcommandtwoopt\citep[3][][]{%
+\begingroup\protected\def\harvardand{\&}
+\@ifmtarg{#1}
+{\citebox{\oldcitep{#3}}}%
+{\@ifmtarg{#2}
+{\citebox{\oldcitep[]{#3}}\citeinfo{#1}}
+{\citebox{\oldcitep[][]{#3}}\citeinfo{#2, #3}}}%
+\endgroup}
+\makeatother
+\protected\def\harvardand{and}
+
+\renewenvironment{quotation}
+% START ENVIRONMENT
+{
+%        % CHANGE FONT HERE .V.  %
+\it\begin{quote}\fontfamily{ptm}\selectfont
+}
+% CLOSE ENVIRONMENT
+{
+\end{quote}
+}
+
+% http://blog.nguyenvq.com/blog/2011/05/01/spacing-between-items-in-itemize-or-enumerate-environments-lists/
+% http://www.troubleshooters.com/linux/lyx/ownlists.htm#_Spacing_List_Items
+
+%\newlength{\wideitemsep}
+%\setlength{\wideitemsep}{\itemsep}
+%\addtolength{\wideitemsep}{-8pt}
+%\let\olditem\item
+%\renewcommand{\item}{\setlength{\itemsep}{\wideitemsep}\olditem}
+
+%\newlength{\wideparsep}
+%\setlength{\wideparsep}{\parsep}
+%\addtolength{\wideparsep}{-180pt}
+%\let\olditem\item
+%\renewcommand{\item}{\setlength{\parsep}{\wideparsep}\olditem}
+
+\newlength{\wideparskip}
+\setlength{\wideparskip}{\parskip}
+%\addtolength{\wideparskip}{-0.7em}
+\setlength{\wideparskip}{-.3\baselineskip}
+\let\olditem\item
+\renewcommand{\item}{\setlength{\parskip}{\wideparskip}\olditem}
+
