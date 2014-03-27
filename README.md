@@ -1,18 +1,23 @@
+
 extend etherpad's collaborative writing approach with optional commandline magic.
 
-Within the etherpad (e.g. http://lgru.pad.constantvzw.org:8000/197) 
-you may define commands (lines starting with a %) that will be
-executed while converting the etherpad to pdf using pdflatex.
+On an etherpad (e.g. http://lgru.pad.constantvzw.org:8000/etherpash) 
+you can use markdown and define commands (lines start with a %) that 
+will be executed while the etherpad is converted to pdf using pdflatex.
 
-Commands are defined in [i/bash/*.functions](). To render 
-a pdf file run ./etherpad2pdf.sh (you may provide an additional
-function file)
+Commands are defined in [i/bash/*.functions](). 
+
+ 
+Execute ./etherpad2pdf.sh to render a pdf file.
+You may provide an additional function file, e.g.
+./etherpad2pdf.sh i/bash/my.functions
+
 
 NEEDED SOFTWARE:
 
-pandoc
-texlive-extra-utils 
-texlive-generic-extra
-texlive-latex-extra
-texlive-fonts-extra 
-texlive-fonts-recommended
+pandoc    
+texlive-extra-utils     
+texlive-generic-extra    
+texlive-latex-extra    
+texlive-fonts-extra    
+texlive-fonts-recommended    
