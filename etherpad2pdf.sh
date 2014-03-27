@@ -30,9 +30,10 @@
   EMPTYLINE="EMPTY-LINE-EMPTY-LINE-EMPTY-LINE-TEMPORARY-NOT"
 
   FUNCTIONS=collect.functions
-  FNCTSBASIC=i/bash/basic.functions
+  FNCTSBASIC=i/bash/common.functions
 
   cat $FNCTSBASIC > $FUNCTIONS
+# APPEND OPTIONAL FUNCTION SET (IF GIVEN)
   if [[ ! -z "$1" ]]; then cat $1 >> $FUNCTIONS ; fi
 # --------------------------------------------------------------------------- #
 # INCLUDE FUNCTIONS
