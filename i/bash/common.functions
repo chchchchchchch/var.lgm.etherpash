@@ -97,7 +97,8 @@ function GRAFIK() {
 
   NAME=`echo $1 | rev | cut -d "/" -f 1 | \
         cut -d "." -f 2- | rev`
-  SUPPORTED="pdf jpg svg eps"
+  SUPPORTED="pdf jpg gif svg eps"
+
 
   TEXMACRO=\\grafik`echo $2 | egrep "^inline$|^fullpage$|^side$"`
   if [ `echo $TEXMACRO | wc -c` -le 8 ]; then
@@ -153,7 +154,7 @@ function GRAFIK() {
     do
        IMG=`find . -name "*${NAME}.$TYPE" | head -1`
        EXISTS=`echo $IMG | wc -c`
-   
+
        if [ $EXISTS -gt 1 ]; then
   
           if [ $TYPE == pdf ] && [ $INCLUDE == "no" ]; then
@@ -167,6 +168,14 @@ function GRAFIK() {
      
             # echo $IMG " exists"
               writeTeXsrc "$TEXMACRO{$IMG}{$WIDTH}{$ROTATE}"
+              INCLUDE="yes"
+  
+          fi
+          if [ $TYPE == gif ] && [ $INCLUDE == "no" ]; then
+     
+            # echo $IMG " exists"
+              convert $IMG $TMPDIR/${NAME}.pdf
+              writeTeXsrc "$TEXMACRO{$TMPDIR/${NAME}.pdf}{$WIDTH}{$ROTATE}"
               INCLUDE="yes"
   
           fi

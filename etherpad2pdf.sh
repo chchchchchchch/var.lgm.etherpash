@@ -159,10 +159,10 @@
   mv ${TMPTEX%.*}.pdf $PDFDIR/`date +%s`.pdf
   rm ${TMPTEX%.*}.* ${PADDUMP%%.*}.* $FUNCTIONS
 
-#  if [ `find $TMPDIR -name "*.*" | grep -v .gitignore | wc -l` -gt 0 ] 
-#  then
-#  rm $TMPDIR/*.*
-#  fi
+  if [ `find $TMPDIR -name "*.*" | grep -v .gitignore | wc -l` -gt 0 ] 
+  then
+  rm $TMPDIR/*.*
+  fi
 
 
 exit 0;
