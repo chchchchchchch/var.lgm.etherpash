@@ -128,26 +128,11 @@
 
   writeTeXsrc "\documentclass[8pt,cleardoubleempty]{scrbook}"
   writeTeXsrc "\usepackage[utf8]{inputenc}"
-  writeTeXsrc "\usepackage{i/sty/A5}"
-  writeTeXsrc "\usepackage{i/sty/140129}"
-  writeTeXsrc "\setlength\textheight{170mm}"
-  writeTeXsrc "\setlength\topmargin{-17mm}"
-
-  writeTeXsrc "\setlength\textwidth{95mm}"
-  writeTeXsrc "\setlength\oddsidemargin{0mm}"
-  writeTeXsrc "\setlength\evensidemargin{0mm}"
-
-  writeTeXsrc "\parindent=0pt"
+  writeTeXsrc "\usepackage{i/sty/basic}"
+  writeTeXsrc "\usepackage{i/sty/functions}"
 
   writeTeXsrc "\begin{document}"
-
-# writeTeXsrc "\titlepages{%"
-# writeTeXsrc "\url{$PAD2HTMLURL}}"
-# writeTeXsrc "{}{}"
-# writeTeXsrc "\emptypage"
-
   cat $TEXBODY | sed "s/$EMPTYLINE/ /g" >> $TMPTEX
-
   writeTeXsrc "\end{document}"
 
   pdflatex -interaction=nonstopmode \
