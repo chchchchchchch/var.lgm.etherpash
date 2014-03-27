@@ -20,7 +20,8 @@
 # --------------------------------------------------------------------------- #
 
   PADBASE=http://lgru.pad.constantvzw.org:8000
-  PAD2HTMLURL=$PADBASE/ep/pad/export/etherpash/latest?format=txt
+  PADNAME=etherpash
+  PAD2HTMLURL=$PADBASE/ep/pad/export/$PADNAME/latest?format=txt
   PADDUMP=dump.tex
 
   OUTDIR=.
