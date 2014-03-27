@@ -56,12 +56,12 @@
   sed '/zDf7WV362LoP/s/\\/SlasH328d1G/g' |            # SAVE FROM PANDOC
   pandoc -r markdown -w latex |                       # MD TO LATEX
   sed 's/hFg76VCdJueW/"/g' |                          # BACK TO ORIGINAL
-  sed '/zDf7WV362LoP/s/\\//g' | \
-  sed 's/zDf7WV362LoP/%/g' | \
-  sed '/^%/{N;s/\n.*//;}'  | \
-  sed '/^%/s/c8SJu53LDCNN/ /g' | \
-  sed '/^%/s/SlasH328d1G/\\/g' | \
-  sed "s/^ *$/$EMPTYLINE/g"    > $PADDUMP
+  sed '/zDf7WV362LoP/s/\\//g' |                       # REMOVE ESCAPES FROM FUNCTIONS
+  sed 's/zDf7WV362LoP/%/g' |                          # BACK TO ORIGINAL
+  sed '/^%/{N;s/\n.*//;}'  |                          # REMOVE NEWLINES FROM FUNCTIONS (?)
+  sed '/^%/s/c8SJu53LDCNN/ /g' |                      # BACK TO ORIGINAL
+  sed '/^%/s/SlasH328d1G/\\/g' |                      # BACK TO ORIGINAL
+  sed "s/^ *$/$EMPTYLINE/g"    > $PADDUMP             # FILL EMPTY LINES WITH PLACEHOLDER
 
 
 # --------------------------------------------------------------------------- #
