@@ -191,3 +191,39 @@ function GRAFIK() {
  fi
 
 }
+
+# --------------------------------------------------------------------------- #
+
+function INCLUDEPAGES() {
+
+
+   URL=$1
+
+   PAGES=`echo $2 | tr -d [:alpha:]`
+   if [ `echo $PAGES | wc -c` -le 1 ]; then
+    PAGES=-
+   fi
+
+   NAME=`echo $URL | rev | cut -d "/" -f 1 | \
+         cut -d "." -f 2- | rev`
+
+   wget -P $TMPDIR $URL > /dev/null 2>&1
+
+ # -------------------------------------------------------------------- #
+
+   for PDF in `find . -name "${NAME}.pdf" | head -1`
+    do
+
+     # PAGENUM=`pdfinfo latest.pdf | grep Pages | cut -d ":" -f 2`
+     # if [ $PAGES -gt $PAGENUM ]; then
+     #
+     #       PAGES=$PAGENUM
+     # fi
+
+     # echo $PDF
+     # echo $PAGES
+       writeTeXsrc "\includepages{$TMPDIR/$NAME}{$PAGES}"
+   done
+
+
+}
