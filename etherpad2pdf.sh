@@ -29,9 +29,9 @@
 
   EMPTYLINE="EMPTY-LINE-EMPTY-LINE-EMPTY-LINE-TEMPORARY-NOT"
 
+
   FUNCTIONS=collect.functions
   FNCTSBASIC=i/bash/common.functions
-
   cat $FNCTSBASIC > $FUNCTIONS
 # APPEND OPTIONAL FUNCTION SET (IF GIVEN)
   if [[ ! -z "$1" ]]; then cat $1 >> $FUNCTIONS ; fi
@@ -39,6 +39,10 @@
 # INCLUDE FUNCTIONS
 # --------------------------------------------------------------------------- #
   source $FUNCTIONS
+# --------------------------------------------------------------------------- #
+  function writeTeXsrc() { echo "$1" >> $TMPTEX ; }
+# --------------------------------------------------------------------------- #
+
 
 # --------------------------------------------------------------------------- #
 # DUMP AND CONVERT PAD 
@@ -118,7 +122,6 @@
   done
 
 
-
 # --------------------------------------------------------------------------- #
 # GENERATE PDF
 # --------------------------------------------------------------------------- #
@@ -144,7 +147,7 @@
 #           -output-directory $OUTDIR \
 #            $TMPTEX
 
-# cp $TMPTEX debug.tex
+  cp $TMPTEX debug.tex
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
@@ -153,7 +156,11 @@
   cp ${TMPTEX%.*}.pdf latest.pdf
   mv ${TMPTEX%.*}.pdf $PDFDIR/`date +%s`.pdf
   rm ${TMPTEX%.*}.* ${PADDUMP%%.*}.* $FUNCTIONS
+
+  if [ `find $TMPDIR -name "*.*" | grep -v .gitignore | wc -l` -gt 0 ] 
+  then
   rm $TMPDIR/*.*
+  fi
 
 
 exit 0;
