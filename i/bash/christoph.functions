@@ -64,3 +64,25 @@ function INCLUDEPAD() {
 
 }
 
+function FIGLET() {
+
+  TEXT=$1
+  TMPFIGLET=$TMPDIR/figlet.txt
+
+  figlet $TEXT > $TMPFIGLET
+
+  writeTeXsrc "\begin{verbatim}"
+
+    for FLINE in `cat $TMPFIGLET`
+     do
+        writeTeXsrc "$FLINE"
+    done
+                  
+  writeTeXsrc "\end{verbatim}"
+
+  rm $TMPFIGLET
+
+}
+
+
+
