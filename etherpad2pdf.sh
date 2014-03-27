@@ -143,12 +143,12 @@
            -output-directory $OUTDIR \
             $TMPTEX > /dev/null
 
-  # DEBUG
-  # pdflatex -interaction=nonstopmode \
-  #          -output-directory $OUTDIR \
-  #           $TMPTEX
-  #
-  # cp $TMPTEX debug.tex
+# DEBUG
+# pdflatex -interaction=nonstopmode \
+#          -output-directory $OUTDIR \
+#           $TMPTEX
+#
+# cp $TMPTEX debug.tex
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
