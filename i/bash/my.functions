@@ -1,0 +1,15 @@
+
+# GOOD TO KNOW:
+# - where tex body is collected: $TMPTEX (add code with >>)
+# - current line: $LINE
+
+# --------------------------------------------------------------------------- #
+
+function HELLOWORLD() {
+
+  writeTeXsrc "Hello World"
+
+}
+
+# --------------------------------------------------------------------------- #
+
