@@ -1,6 +1,7 @@
 
 # GOOD TO KNOW:
-# - where tex body is collected: $TMPTEX (add code with >>)
+# - where tex body is collected: $TEXBODY (add code with >>)(= $TMPTEX)
+# - writeTeXsrc => write to $TEXBODY
 # - current line: $LINE
 
 # --------------------------------------------------------------------------- #
