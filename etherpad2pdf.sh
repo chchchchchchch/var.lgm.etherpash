@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# THIS IS FRAGILE, HANDLE WITH CARE.                                          #
+# THIS IS A FRAGILE SYSTEM, HANDLE WITH CARE.                                 #
 # --------------------------------------------------------------------------- #
 #                                                                             #
 #  Copyright (C) 2014 LAFKON/Christoph Haag                                   #
@@ -20,7 +20,7 @@
 # --------------------------------------------------------------------------- #
 
   PADBASE=http://lgru.pad.constantvzw.org:8000
-  PAD2HTMLURL=$PADBASE/ep/pad/export/197/latest?format=txt
+  PAD2HTMLURL=$PADBASE/ep/pad/export/etherpash/latest?format=txt
   PADDUMP=dump.tex
 
   OUTDIR=.
