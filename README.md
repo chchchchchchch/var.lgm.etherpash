@@ -1,9 +1,10 @@
 
-extend etherpad's collaborative writing approach with optional commandline magic.
+Extend etherpad's collaborative writing approach with optional commandline magic.
 
 On an etherpad (e.g. http://lgru.pad.constantvzw.org:8000/etherpash) 
-you can use markdown and define commands (lines start with a %) that 
-will be executed while the etherpad is converted to pdf using pdflatex.
+you can use markdown and define commands (lines start with a %). 
+The commands will be executed while the etherpad is converted to pdf 
+using pdflatex.
 
 Commands are defined in [i/bash/*.functions](). 
 
