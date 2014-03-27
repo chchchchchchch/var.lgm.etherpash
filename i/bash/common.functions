@@ -194,6 +194,20 @@ function GRAFIK() {
 
 # --------------------------------------------------------------------------- #
 
+function INCLUDEPAD() {
+
+  PADNUM=$1
+  PADBASE=http://lgru.pad.constantvzw.org:8000
+  PAD2HTMLURL=$PADBASE/ep/pad/export/$PADNUM/latest?format=txt
+
+  wget -q -O  - $PAD2HTMLURL --no-check-certificate | \
+  grep -v ^% |
+  pandoc -r markdown -w latex >> $TEXBODY
+
+}
+
+# --------------------------------------------------------------------------- #
+
 function INCLUDEPAGES() {
 
 
