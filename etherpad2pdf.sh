@@ -58,7 +58,7 @@
   pandoc -r markdown -w latex |                       # MD TO LATEX
   sed 's/hFg76VCdJueW/"/g' |                          # BACK TO ORIGINAL
   sed '/zDf7WV362LoP/s/\\//g' |                       # REMOVE ESCAPES FROM FUNCTIONS
-  sed 's/zDf7WV362LoP/%/g' |                          # BACK TO ORIGINAL
+  sed 's/zDf7WV362LoP/\n%/g' |                          # BACK TO ORIGINAL
   sed '/^%/{N;s/\n.*//;}'  |                          # REMOVE NEWLINES FROM FUNCTIONS (?)
   sed '/^%/s/c8SJu53LDCNN/ /g' |                      # BACK TO ORIGINAL
   sed '/^%/s/SlasH328d1G/\\/g' |                      # BACK TO ORIGINAL
@@ -149,7 +149,7 @@
 #          -output-directory $OUTDIR \
 #           $TMPTEX
 #
-# cp $TMPTEX debug.tex
+  cp $TMPTEX debug.tex
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
@@ -159,10 +159,10 @@
   mv ${TMPTEX%.*}.pdf $PDFDIR/`date +%s`.pdf
   rm ${TMPTEX%.*}.* ${PADDUMP%%.*}.* $FUNCTIONS
 
-  if [ `find $TMPDIR -name "*.*" | grep -v .gitignore | wc -l` -gt 0 ] 
-  then
-  rm $TMPDIR/*.*
-  fi
+#  if [ `find $TMPDIR -name "*.*" | grep -v .gitignore | wc -l` -gt 0 ] 
+#  then
+#  rm $TMPDIR/*.*
+#  fi
 
 
 exit 0;
