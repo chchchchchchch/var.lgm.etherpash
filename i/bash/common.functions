@@ -95,10 +95,9 @@ function ODDSIDEMARGIN() {
 
 function GRAFIK() {
 
+  SUPPORTED="pdf jpg gif svg eps"
   NAME=`echo $1 | rev | cut -d "/" -f 1 | \
         cut -d "." -f 2- | rev`
-  SUPPORTED="pdf jpg gif svg eps"
-
 
   TEXMACRO=\\grafik`echo $2 | egrep "^inline$|^fullpage$|^side$"`
   if [ `echo $TEXMACRO | wc -c` -le 8 ]; then
@@ -134,7 +133,9 @@ function GRAFIK() {
          if [ $RESPONSE == '200' ]; then
     
           # echo $URL "exists"
-            wget -P $TMPDIR $URL > /dev/null 2>&1
+          # wget -P ${TMPDIR} $URL > /dev/null 2>&1
+            NAME=`echo $NAME | md5sum | cut -c 1-10`
+            wget -O ${TMPDIR}/${NAME}.${TYPE} $URL > /dev/null 2>&1
 
          else
 
@@ -147,6 +148,7 @@ function GRAFIK() {
     fi
 
  # -------------------------------------------------------------------- #
+
 
    INCLUDE="no"
      
