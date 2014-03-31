@@ -19,8 +19,9 @@
 #                                                                             #
 # --------------------------------------------------------------------------- #
 
-  PADBASE=http://lgru.pad.constantvzw.org:8000
   PADNAME=etherpash
+# PADNAME=200
+  PADBASE=http://lgru.pad.constantvzw.org:8000
   PAD2HTMLURL=$PADBASE/ep/pad/export/$PADNAME/latest?format=txt
   PADDUMP=dump.tex
 
@@ -137,7 +138,8 @@
   writeTeXsrc "\usepackage{i/sty/functions}"
 
   writeTeXsrc "\begin{document}"
-  cat $TEXBODY | sed "s/$EMPTYLINE/ /g" >> $TMPTEX
+  cat $TEXBODY | sed '/^$/d' | sed "s/$EMPTYLINE/ /g" | \
+  sed '$!N; /^\(.*\)\n\1$/!P; D' >> $TMPTEX
   writeTeXsrc "\end{document}"
 
   pdflatex -interaction=nonstopmode \

@@ -254,3 +254,29 @@ function INCLUDEPAGES() {
 }
 
 # --------------------------------------------------------------------------- #
+
+# UNSTABLE
+
+FOOTNOTECOUNT=1
+
+function FOOTNOTE() {
+
+  FOOTNOTE=`grep FOOTNOTE $PADDUMP | \
+            head -n $FOOTNOTECOUNT | \
+            tail -1 | \
+            cut -d ":" -f 2- | \
+            sed 's,/,\\\/,g' | \
+            sed -e 's/^[ \t]*//'`
+
+  FOOTNOTE="\\\footnote{"${FOOTNOTE}"}"
+
+# http://stackoverflow.com/questions/3576139/sed-remove-string-only-in-the-last-line-of-the-file
+
+  sed -i "$ s/$/$FOOTNOTE/g" $TEXBODY
+# sed -i '/footnote{/s/^[ \t]*//' $TEXBODY
+
+  FOOTNOTECOUNT=`expr $FOOTNOTECOUNT + 1`
+
+}
+
+# --------------------------------------------------------------------------- #
